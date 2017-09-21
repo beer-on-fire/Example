@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+
+var data = {
+    rows: [
+        ["Lisa", 16, "Female", "2000-12-01"],
+        ["Bob", 22, "Male", "1996-01-21"]
+    ],
+    metaData: [
+        {name: "name", note: ''},
+        {name: "age", note: ''},
+        {name: "gender", note: ''},
+        {name: "birthday", note: ''}
+    ]
+}
+// rows是数据，metaData是对数据的说明。现写一个函数，将上面的Object转化为期望的数组：
+// [
+//  {name: "Lisa", age: 16, gender: "Female", birthday: "2000-12-01"},
+//  {name: "Bob", age: 22, gender: "Male", birthday: "1996-01-21"},
+// ]
+let rows = data.rows;
+let metaData = data.metaData;
+let names = [];
+let result = [];
+// 将 metaData  push到数组
+for(var i = 0;i < metaData.length;i++) {
+    names.push(metaData[i].name)
+}
+console.log(names);
+
+for(var i = 0;i < rows.length;i++) {
+    let obj = {}
+    for(let j = 0;j < names.length;j++) {
+        var name = names[j]
+        obj[name] = rows[i][j]
+    }
+    result.push(obj)
+}
+console.log(result);
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 写一个函数，判断给定的日期是几月的第几周，当月1日属于上一月的，该周计入上一月。例如：
+    1）输入日期2016-02-01，返回结果为2-1，表示2016年2月1日属于2月的第一周；
+    2）输入日期2016-09-01，返回结果为8-5，表示2016年9月1日属于8月的第五周。 -->
+
+</body>
+<script type="text/javascript">
+Weekly('09, 21, 2005')
+function Weekly(a)  {
+    // 将输入的时间转换成标准格式
+    a = new Date(a)
+    // 计算输入的时间在几月，在第几周
+    let month = a.getMonth() + 1
+    let week = a.getDate()/7 | 1
+    // 只要本月前七天都不是周一，那本月1号往后的就计入本月，否则就计入上一月的第五周
+    if(a.getDate() < 7) { // 前七天
+        if (a.getDay() !== 1) {     // 第几周都不为周一
+            month = a.getMonth()
+            week = 5
+        }
+    }
+    document.write(`${month}-${week}`)
+}
+</script>
+</html>

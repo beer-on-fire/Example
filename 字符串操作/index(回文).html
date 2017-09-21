@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+function isMatch(str1, str2) {
+    console.log(str1.split('').sort().join(''));
+    console.log(str2.split('').sort().join(''));
+    return str1.split('').sort().join('') === str2.split('').sort().join('');
+}
+console.log(isMatch('something', 'ginhtemos'));  // true
+console.log(isMatch('aaa', 'aa'))  //false
+console.log(isMatch('abb', 'baa'))  //false
+console.log(isMatch('hello', 'olelh'))  //true
+</script>
+</html>

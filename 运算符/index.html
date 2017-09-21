@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+var x = !!"Hello" + (!"world", !!"from here!!");
+alert(x);
+// 因为这三个字符串都有取反运算符!，所以可以转化为布尔值，式子可以变形为
+// var x = true + ( false , true )
+// 然后因为括号，所以先计算( false , true )，又因为里面有逗号运算符，所以输出true，式子变成了
+// var x = true + true
+// 因为有+运算符，所以true被转化为数字1，所以最后结果x的值为2
+</script>
+</html>

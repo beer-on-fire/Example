@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+//判断一个对象是不是空对象
+//////////// ES6:
+
+function isEmptyObject(obj){
+   return Object.keys(obj).length === 0 && obj.constructor === Object
+}
+
+////////////// Pre-ECMA 5:
+
+function isEmptyObject(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+}
+//////////////jQuery:
+/// jQuery.isEmptyObject({});
+</script>
+</html>

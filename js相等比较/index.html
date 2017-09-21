@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+console.log( +0 ==  -0 ) // =>true
+
+console.log( +0 === -0 ) // => true
+
+console.log( Object.is(+0, -0) ) // => false   // Object.is()方法确定两个值是否相同。
+
+console.log( "1" == 1 ) // => true
+
+console.log( "1" === 1 ) // => false
+
+console.log( Object.is("1", 1) ) // => false
+
+console.log( new String("foo") == new String("foo") )  //   => false
+
+console.log( new String("foo") === new String("foo") ) // => false
+
+console.log( Object.is(new String("foo") , new String("foo") ) ) // => false
+
+console.log( new String("foo") == "foo" ) // => true
+console.log( new String("foo") === "foo" ) // => false
+console.log( Object.is(new String("foo") , "foo" ) ) // => false
+
+const a = {}
+const b = a
+console.log( a == b  ) // => true
+console.log( a === b  ) // => true
+console.log( Object.is(a, b) ) // => true
+
+console.log( NaN == NaN ) // => false
+console.log( NaN === NaN ) // => false
+console.log( Object.is(NaN, NaN) ) // => true
+</script>
+</html>
