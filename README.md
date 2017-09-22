@@ -10,3 +10,5 @@
 8.	类型判断：[https://github.com/beer-on-ice/Example/tree/master/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD](https://github.com/beer-on-ice/Example/tree/master/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD)
 9.	运算符： [https://github.com/beer-on-ice/Example/tree/master/%E8%BF%90%E7%AE%97%E7%AC%A6](https://github.com/beer-on-ice/Example/tree/master/%E8%BF%90%E7%AE%97%E7%AC%A6)
 10.	递归： [https://github.com/beer-on-ice/Example/tree/master/%E9%80%92%E5%BD%92](https://github.com/beer-on-ice/Example/tree/master/%E9%80%92%E5%BD%92)
+11.	深度克隆：[https://github.com/beer-on-ice/Example/tree/master/js/%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86](https://github.com/beer-on-ice/Example/tree/master/js/%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86) 
+12.	数组去重：[https://github.com/beer-on-ice/Example/tree/master/js/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D](https://github.com/beer-on-ice/Example/tree/master/js/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D)
