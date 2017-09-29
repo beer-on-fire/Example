@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <button>click</button>
+    <ul id="ul"></ul>
+</body>
+<script src="ajaxfunction.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var btn = document.querySelector("button")
+
+    btn.onclick = function() {
+        ajax('get','getNews.php','',function( backData ) {
+            var data = JSON.parse( backData );
+
+            var ul = document.querySelector('#ul');
+            var html='';
+            for(var i=0;i<data.length;i++) {
+                html +='<li><a href="">'+ data[i].title +'</a><span>'+ data[i].date +'</span></li>'
+            }
+            ul.innerHTML = html
+        });
+        setInterval(function() {
+            ajax('get','getNews.php','',function( backData ) {
+                var data = JSON.parse( backData );
+
+                var ul = document.querySelector('#ul');
+                var html='';
+                for(var i=0;i<data.length;i++) {
+                    html +='<li><a href="">'+ data[i].title +'</a><span>'+ data[i].date +'</span></li>'
+                }
+                ul.innerHTML = html
+            });
+        },1000)
+    }
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="JSON.js" charset="utf-8"></script>
+<script type="text/javascript">
+/*
+JSON:
+*/
+// alert(JSON)
+
+// stringify: 可以把一个对象转成对应字符串
+var arr=[1,2,3]
+var j = {left:100}
+// alert( JSON.stringify(arr))
+// alert(JSON.stringify(j))
+
+// parse: 可以把字符串转成对应对象
+var arr1 = '[10,20,30]'
+var j2 = '{"left":100}'  // 严格模式，left外一定是双引号
+// alert(JSON.parse(arr1))
+alert(JSON.parse(j2).left)
+</script>
+</html>
