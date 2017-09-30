@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <button>click</button>
+    <input type="button" value="点击">
+    <ul></ul>
+    <ol></ol>
+</body>
+<script type="text/javascript">
+    function fn1(data) {
+        var ul = document.querySelector('ul')
+
+        var html = ''
+        for(var i=0;i<data.length;i++) {
+            html += '<li>'+ data[i] +'</li>'
+        }
+        ul.innerHTML = html;
+    }
+    function fn2(data) {
+        var ol = document.querySelector('ol')
+
+        var html = ''
+        for(var i=0;i<data.length;i++) {
+            html += '<li>'+ data[i] +'</li>'
+        }
+        ol.innerHTML = html;
+    }
+</script>
+<!-- <script src="2.txt" charset="utf-8"></script> -->
+<script type="text/javascript">
+
+// 加载数字
+var btn = document.querySelector('button')
+    btn.onclick = function() {
+        // 当按钮点击的时候，再去加载远程资源，让他执行
+        var scriptEle = document.createElement('script')
+        scriptEle.src = 'getData.php?callback=fn1'
+        document.body.appendChild(scriptEle)
+    }
+
+//加载字幕
+var input = document.querySelector('input')
+    input.onclick = function() {
+        // 当按钮点击的时候，再去加载远程资源，让他执行
+        var scriptEle = document.createElement('script')
+        scriptEle.src = 'getData.php?t=str&callback=fn2'
+        document.body.appendChild(scriptEle)
+    }
+</script>
+</html>

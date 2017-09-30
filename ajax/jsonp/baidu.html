@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<style media="screen">
+    #search {
+        width: 300px;
+        height: 30px;
+        padding:5px;
+        border: 1px solid #ccc;
+        font-size: 20px;
+    }
+    ul {
+        border: 1px solid #ccc;
+        width: 310px;
+        margin:0;
+        padding:0;
+        list-style:none;
+        display: none;
+    }
+    li a {
+        line-height: 30px;
+        padding: 5px;
+        text-decoration: none;
+        color:black;
+        display:block;
+    }
+    li a:hover {
+        background:#f90;
+        color: white;
+    }
+</style>
+</head>
+<body>
+<input type="text" id='search'>
+<ul></ul>
+</body>
+<script type="text/javascript">
+    function callback(data) {
+        var ul = document.querySelector('ul')
+        var html=''
+        if(data.s.length) {
+            ul.style.display = 'block'
+            for(var i= 0;i < data.s.length;i++) {
+                html += '<li><a target="_blank" href="http://www.baidu.com/s?wd='+ data.s[i] +'">'+ data.s[i]  +'</a></li>'
+            }
+            ul.innerHTML = html
+        } else {
+            ul.style.display = 'none'
+        }
+    }
+    var input = document.querySelector('#search')
+    var ul = document.querySelector('ul')
+
+    input.onkeyup = function() {
+        if(this.value != '' ) {
+            var scriptEle = document.createElement('script')
+            scriptEle.src = 'http://suggestion.baidu.com/su?wd='+ this.value +'&cb=callback'
+            document.body.appendChild(scriptEle)
+        } else {
+            ul.style.display = 'none'
+        }
+    }
+</script>
+</html>

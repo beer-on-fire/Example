@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <button id="btn">click</button>
+</body>
+<script>
+
+    ///// 报错，产生了跨域访问s
+    var btn = document.getElementById('btn')
+    btn.onclick = function() {
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                alert(xhr.responseText)
+            }
+        }
+        xhr.open('GET','https://api.douban.com/v2/book/1220562',true)
+        xhr.send()
+    }
+</script>
+</html>
