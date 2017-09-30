@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+    * {
+        margin:0;
+        padding: 0;
+        list-style:none;
+    }
+    #ul1 {
+        width:1080px;
+        margin: 100px auto 0;
+    }
+    li {
+        width: 247px;
+        float: left;
+        margin-right: 10px;
+    }
+    li div {
+        border: 1px solid #ccc;
+        padding:10px;
+        margin-bottom: 10px;
+    }
+    li div img {
+        width: 225px;
+        display: block;
+    }
+</style>
+<body>
+    <ul id="ul1">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+<script src="ajaxfunction.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    var ul = document.querySelector('#ul1')
+    var lis = document.querySelectorAll('li')
+    var len = lis.length
+    var page = 1
+    var door = true  // 防止还没加载完这页又拖动，又触发了下一页的加载
+
+    // 初始化数据处理
+    getList();
+    function getList() {
+        ajax('get','getPics.php','cpage=' + page,function(data) {
+            var data = JSON.parse(data)
+
+            //    数据全部加载，后续没有数据
+            if(!data.length) {
+                return
+            }
+
+            for(var i=0;i<data.length;i++) {
+                // 获取高度最小的li
+                var _index = getShort()
+
+                var div = document.createElement('div')
+                var p = document.createElement('p')
+                var img = document.createElement('img')
+
+                img.src = data[i].preview
+                img.style.width = '225px'
+                img.style.height = data[i].height * (225/data[i].width)+'px'
+                p.innerHTML = data[i].title
+
+                div.appendChild(img)
+                div.appendChild(p)
+
+                lis[_index].appendChild(div)
+            }
+            door = true
+        });
+    }
+
+    window.onscroll = function() {
+        var _index = getShort()
+        var li = lis[_index] // 最短的一列li
+
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        if(getTop(li) + li.offsetHeight < document.documentElement.clientHeight + scrollTop) {
+            if(door) {
+                door = false
+                page++
+                getList()
+            }
+
+        }
+    }
+
+    // 找到高度最小的li
+    function getShort(obj) {
+        var index = 0
+        var h = lis[index].offsetHeight
+        for(var i=1;i<len;i++) {
+            if(lis[i].offsetHeight < h) {
+                index = i
+                h = lis[i].offsetHeight
+            }
+        }
+        return index
+    }
+
+    // 获取一个元素到页面的绝对值
+    function getTop(obj) {
+        var top = 0
+        while(obj) {
+            top += obj.offsetTop
+            obj = obj.offsetParent
+        }
+        return top
+    }
+
+</script>
+</html>

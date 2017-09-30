@@ -17,7 +17,7 @@ function ajax( method , url , data , success) {
         url += '?' + data
     }
 
-    xhr.open("GET",'getNews.php',true)
+    xhr.open(method,url,true)
     if(method === 'get') {
         xhr.send()
     } else {
