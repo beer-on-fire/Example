@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input {
+            width: 300px;
+            height: 30px;
+            padding:5px;
+            border: 1px solid #ccc;
+            font-size: 20px;
+        }
+        button {
+            margin-left: 5px;
+            height: 40px;
+            line-height:40px;
+            font-size: 20px;
+        }
+        dl {
+            border-bottom: 1px dotted #000;
+        }
+        dt {
+            font-weight: bold;
+        }
+        a {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border:1px solid #ccc;
+            text-decoration: none;
+            display:inline-block;
+            text-align:center;
+            margin:5px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text"><button>click</button>
+    <nav></nav>
+    <p></p>
+    <hr/>
+    <div></div>
+</body>
+<script type="text/javascript">
+    var search = document.querySelector('input')
+    var btn = document.querySelector('button')
+    var msg = document.querySelector('p')
+    var nav = document.querySelector('nav')
+    var list = document.querySelector('div')
+    var newCount = 20;
+
+    function fn(data) {
+        // 生成页码
+        var pages = Math.ceil(data.total/newCount);
+        let navs = ''
+        for(var i=0;i<pages;i++) {
+            navs += `<a href='javascript:;'>${i+1}</a>`
+        }
+        nav.innerHTML = navs;
+
+        // 生成书本内容
+        msg.innerHTML = '总共有'+ data.total + '条结果'
+        var books = data.books
+        var html = ''
+        for(var i=0;i<books.length;i++) {
+            html+='<dl><dt>'+ books[i].title +'</dt><dd><img src="'+ books[i].image +'" alt="" /></dd></dl>'
+        }
+        list.innerHTML = html
+
+        //     点击页码跳转
+        var pp = document.querySelectorAll('nav a')
+        for(var i=0;i<pp.length;i++) {
+            pp[i].index = i
+            pp[i].onclick  =function() {
+                var newStart = this.index * newCount;
+                var newX = document.querySelector('.script');
+                document.body.removeChild(newX);
+
+                var scriptEl = document.createElement('script');
+                scriptEl.className = 'script';
+                scriptEl.src = `https://api.douban.com/v2/book/search?q=${search.value}&callback=fn&start=${newStart}&count=${newCount}`;
+                document.body.appendChild(scriptEl);
+            }
+        }
+    }
+
+    btn.onclick = function() {
+        if(search.value != '') {
+            var scriptEl = document.createElement('script')
+            scriptEl.className = 'script';
+            scriptEl.src = 'https://api.douban.com/v2/book/search?q='+ search.value +'&callback=fn'
+            document.body.appendChild(scriptEl)
+        }
+    }
+</script>
+</html>
