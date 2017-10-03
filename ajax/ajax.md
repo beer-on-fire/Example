@@ -55,3 +55,19 @@
     }
 
 ![](https://i.imgur.com/GDLgIfO.png)
+
+
+
+## jQuery.ajax()
+
+    $.ajax({  
+	     type: 'GET',  
+	     url: "http://192.168.33.114:8080/UIDTraceAdmin/transportnode/pagelist/jsonp?callbackFunction=jsonpCallback",  
+	     async: false,  
+	     dataType: "jsonp",  
+	     jsonp: "jsonpCallback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)  
+	     success: function(o){},  
+	     timeout:3000
+    }).responseText;  
+
+![](https://i.imgur.com/5FVQStI.png)
