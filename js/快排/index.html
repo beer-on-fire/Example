@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    function quickSort(arr) {
+        if(arr.length <1) {
+            return arr
+        }
+        // 找到中间的索引值，如果是浮点数，则向下取整
+        var num = Math.floor(arr.length/2)
+        // 找到中间数的值
+        var numValue = arr.splice(num,1)
+        var leftArr = []
+        var rightArr = []
+        for (var i = 0; i < arr.length; i++) {
+            if(arr[i]<numValue) {
+                leftArr.push(arr[i])
+            } else {
+                rightArr.push(arr[i])
+            }
+        }
+        // 递归不断比较
+        return quickSort(leftArr).concat([numValue],quickSort(rightArr))
+    }
+    alert(quickSort([32,31,50,40,3,10]))
+
+</script>
+</html>
