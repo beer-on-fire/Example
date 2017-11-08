@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery-3.2.1.min.js" charset="utf-8"></script>
+    <style media="screen">
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            width: 600px;
+            height: 600px;
+            border:1px solid #000;
+            position:relative;
+            margin: 0 auto;
+        }
+        li {
+            width:200px;
+            height:200px;
+            float: left;
+            text-align:center;
+            font:100px/200px Arial;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li style="background:#cca3b6">0</li>
+        <li style="background:#31dad0">1</li>
+        <li style="background:#216481">2</li>
+        <li style="background:#885237">3</li>
+        <li style="background:#8ae3b5">4</li>
+        <li style="background:#c995c2">5</li>
+        <li style="background:#22502f">6</li>
+        <li style="background:#b30584">7</li>
+    </ul>
+</body>
+<script type="text/javascript">
+$(function() {
+    var posArr = []
+    var blankIndex = 8
+    var preIndex = -1
+    var mapping = [
+        [1,3],
+        [0,2,4],
+        [1,5],
+        [0,4,6],
+        [1,3,5,7],
+        [2,4,8],
+        [3,7],
+        [4,6,8],
+        [5,7]
+    ]
+    // 改成定位布局
+    $('li').each((i,item) => {
+        posArr.push([ $(item).position().left , $(item).position().top ])
+    })
+
+    $('li').each((i,item) => {
+        $(item).css('position','absolute')
+        $(item).css('left',posArr[i][0])
+        $(item).css('top',posArr[i][1])
+    })
+
+    $('li').each((i,item) => {
+        $(item).attr('_index', i)
+    })
+
+    function move() {
+        var nowArr = mapping[blankIndex]
+        var filterArr = []
+        for(var i=0;i<nowArr.length;i++) {
+            if(preIndex != nowArr[i]) {
+                filterArr.push(nowArr[i])
+            }
+        }
+
+        var nowIndex = filterArr[Math.floor(Math.random() * filterArr.length)]
+
+        preIndex = blankIndex
+
+        var targetL = blankIndex%3 * 200;
+        var targetT = Math.floor(blankIndex/3) * 200;
+        var temp = 0;
+
+        $('li').each(function(i,item) {
+            if($(item).attr('_index') == nowIndex) {
+                $(item).animate({left: targetL, top: targetT},1000,function() {
+                    temp = blankIndex;
+                    blankIndex = $(this).attr('_index')
+                    $(this).attr('_index',temp)
+                    move();
+
+                })
+            }
+        })
+
+
+    }
+    move();
+
+})
+</script>
+</html>
