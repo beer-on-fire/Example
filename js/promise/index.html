@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    var promise = new Promise(function(resolve, reject) {
+         resolve('ok')  // Promise 在resolve语句后面再抛出错误不会被捕获
+        // reject(new Error('test'))  //reject方法的作用，等同于抛出错误
+    });
+    promise.then(function(value) {
+        console.log(value);
+    }).catch(function(value) {
+        console.log(value);
+    })
+</script>
+</body>
+</html>
