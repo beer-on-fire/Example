@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+    #goTp {
+        width:50px;height:50px;
+        position:fixed;
+        bottom:200px;
+        right:100px;
+    }
+</style>
+</head>
+
+<body>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <button id="goTp"></button>
+    <p><button onclick="clickCounter()" type="button">请点击这里</button></p>
+    <div id="result"></div>
+
+    <script src="./jquery-3.2.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        function clickCounter() {
+            if (typeof(Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                document.getElementById("result").innerHTML = "在本 session 中，您已经点击这个按钮 " + sessionStorage.clickcount + " 次。";
+            } else {
+                document.getElementById("result").innerHTML = "抱歉！您的浏览器不支持 Web Storage ...";
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        if (sessionStorage.pagecount) {
+            sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;
+        } else {
+            sessionStorage.pagecount = 1;
+        }
+        document.write("Visits " + sessionStorage.pagecount + " time(s) this session.");
+    </script>
+
+    
+</body>
+
+</html>

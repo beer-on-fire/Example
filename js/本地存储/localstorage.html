@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="result"></div>
+
+    <script>
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("lastname", "Gates");
+            document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+        } else {
+            document.getElementById("result").innerHTML = "抱歉！您的浏览器不支持 Web Storage ...";
+        }
+    </script>
+
+    <script type="text/javascript">
+        if (localStorage.pagecount) {
+            localStorage.pagecount = Number(localStorage.pagecount) + 1;
+        } else {
+            localStorage.pagecount = 1;
+        }
+        document.write("Visits " + localStorage.pagecount + " time(s).");
+    </script>
+
+    <!-- localStorage的写入 -->
+    <script type="text/javascript">
+        var storage=window.localStorage;
+        //写入a字段
+        storage["a"]=1;
+        //写入b字段
+        storage.b=2;
+        //写入c字段
+        storage.setItem("c",3);
+        // localStorage只支持string类型的存储。
+        console.log(storage["a"]);
+        console.log(storage.b);
+        console.log(storage.getItem("c"));
+    </script>
+    <!-- localStorage的读取 -->
+    <script type="text/javascript">
+        //第一种方法读取
+        var a=storage["a"];
+        console.log(a);
+        //第二种方法读取
+        var b=storage.b;
+        console.log(b);
+        //第三种方法读取
+        var c=storage.getItem("c");
+        console.log(c);
+    </script>
+    <!-- localStorage的改 -->
+    <script type="text/javascript">
+        storage.b=4;
+        console.log(storage["b"]);
+    </script>
+    <!-- localStorage的删 -->
+    <script type="text/javascript">
+        // 针对某个
+        storage.removeItem("a");
+        console.log(storage.a);
+        console.log(storage.c);
+
+        // 清空所有
+         storage.clear();
+         console.log(storage["b"]);
+    </script>
+    <!-- localStorage的键获取 -->
+    <script type="text/javascript">
+        var storage=window.localStorage;
+        storage.a=1;
+        storage.setItem("c",3);
+        for(var i=0;i<storage.length;i++){
+            var key=storage.key(i);
+            console.log(key);
+        }
+    </script>
+    <!-- 在localStorage会自动将JSON转换成为字符串形式 -->
+    <script type="text/javascript">
+    //    存储
+        if(!window.localStorage){
+            alert("浏览器不支持localstorage");
+        }else{
+            var storage=window.localStorage;
+            var data = {
+                name:'xiecanyong',
+                sex:'man',
+                hobby:'program'
+            };
+            var d = JSON.stringify(data);
+            storage.setItem("data",d);
+            console.log(storage.data);
+            console.log(typeof storage.data);
+        }
+    // 读取，将JSON字符串转换成为JSON对象输出
+        var json = storage.getItem("data");
+        var jsonObj = JSON.parse(json);
+        console.log(jsonObj);
+        console.log(typeof jsonObj);
+    </script>
+    <!-- 将数组转为本地字符串 -->
+    <script type="text/javascript">
+        var arr = ['aa','bb','cc'];
+        storage.arr = arr
+        storage.arr.toLocaleString();
+        console.log(storage.arr);
+    </script>
+
+    <!-- 自动回到上次滚动到的位置 -->
+    <script type="text/javascript">
+        $(window).scroll(function() {
+            if ($(document).scrollTop() != 0) {　　　　
+                localStorage.setItem("offsetTop", $(window).scrollTop()); //保存滚动位置
+            }
+        });
+        window.onload = function() {　　
+            var _offset = localStorage.getItem("offsetTop");　
+            $('html,body').animate({scrollTop:  _offset + 'px' }, 2000);
+        };
+    </script>
+</body>
+
+</html>
