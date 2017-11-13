@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上拉加载</title>
+    <script src="./m.touchTap.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function() {
+            var html = document.querySelector('html');
+            html.style.fontSize = html.clientWidth / 16 + "px";
+        })()
+    </script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #ccc;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        canvas {
+            vertical-align: top;
+            opacity: 0;
+            transition: 1s opacity;
+        }
+
+        header {
+            height: 2.4rem;
+            font: 1rem/2.4rem "宋体";
+            color: #fff;
+            background: #000;
+            text-align: center;
+        }
+
+        #wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 2.4rem;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        #scroll {
+            position: relative;
+        }
+
+        #list {
+            overflow: hidden;
+        }
+
+        #list li {
+            float: left;
+            margin: .5rem;
+            width: 7rem;
+            height: 7rem;
+            background: #fff url('pics/loading.gif') no-repeat center;
+        }
+
+        footer {
+            position: absolute;
+            left: 0;
+            bottom: -1.6rem;
+            width: 100%;
+            font: .8rem/1.6rem "宋体";
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>图片上滑加载</header>
+    <section id="wrap">
+        <div id="scroll">
+            <ul id="list">
+            </ul>
+            <footer>上滑加载更多</footer>
+        </div>
+    </section>
+    <script type="text/javascript">
+        var data = [];
+        for (var i = 0; i < 37; i++) {
+            data[i] = "pics/" + (i % 16 + 1) + ".jpg";
+        }
+        (function() {
+            var wrap = document.querySelector('#wrap');
+            var scroll = document.querySelector('#scroll');
+            var list = document.querySelector('#list');
+            var pics = list.getElementsByTagName("li");
+            var footer = document.querySelector('footer');
+            var bar = wrap.getElementsByClassName("bar");
+            var wrapRect = wrap.getBoundingClientRect();
+            var nowPage = 0; //当前是第几次加载
+            var length = 12; //一次加载多少张图
+            var isCreate = false;
+            var isLoadOver = false; //全部加载完了
+            create();
+            mScroll({
+                wrap: wrap,
+                start: start,
+                move: function() {
+                    if (isLoadOver) {
+                        return;
+                    }
+                    getLoad();
+                },
+                up: up
+            });
+
+            function start() {
+                if (isLoadOver) {
+                    return;
+                }
+                var min = wrap.clientHeight - scroll.offsetHeight;
+                var now = css(scroll, 'translateY')
+                console.log(now, min);
+                if (now <= min) { //判断是否是从底部开始滑动的，如果是可能要执行加载更多
+                    isCreate = true;
+                } else {
+                    isCreate = false;
+                }
+                if (isCreate) {
+                    footer.style.display = "block";
+                } else {
+                    footer.style.display = "none";
+                }
+            }
+
+            function up() {
+                if (isLoadOver) {
+                    return;
+                }
+                var min = wrap.clientHeight - scroll.offsetHeight;
+                var now = css(scroll, "translateY");
+                if (isCreate && now <= min - footer.offsetHeight) {
+                    console.log(bar);
+                    bar[0].style.opacity = 0;
+                    cancelAnimationFrame(scroll.timer);
+                    nowPage++;
+                    create();
+                }
+            }
+
+            function create() {
+                var start = nowPage * length;
+                if (start >= data.length) {
+                    footer.innerHTML = "没有更多图片了";
+                    setTimeout(function() {
+                        var min = wrap.clientHeight - scroll.offsetHeight;
+                        startMove({
+                            el: scroll,
+                            target: {
+                                translateY: min
+                            },
+                            type: "easeOut",
+                            time: 300
+                        });
+                        isLoadOver = true;
+                        footer.style.display = "none";
+                    }, 1000)
+                    return;
+                }
+                var end = start + length;
+                end = end > data.length ? data.length : end;
+                for (var i = start; i < end; i++) {
+                    var li = document.createElement("li");
+                    li.dataset.src = data[i];
+                    list.appendChild(li)
+                }
+                footer.style.display = "none";
+                getLoad();
+            }
+
+            function getLoad() {
+                for (var i = 0; i < pics.length; i++) {
+                    var rect = pics[i].getBoundingClientRect();
+                    if (rect.top < wrapRect.bottom && rect.bottom > wrapRect.top && !pics[i].isLoad) {
+                        imgLoading(pics[i]);
+                        pics[i].isLoad = true;
+                    }
+                }
+            }
+
+            function imgLoading(li) {
+                var img = new Image();
+                var c = document.createElement("canvas");
+                var cxt = c.getContext("2d");
+                c.width = li.clientWidth;
+                c.height = li.clientHeight;
+                li.appendChild(c);
+                img.src = li.dataset.src;
+                img.onload = function() {
+                    cxt.drawImage(img, 0, 0, c.width, c.height);
+                    c.style.opacity = 1;
+                };
+            }
+        })()
+    </script>
+</body>
+
+</html>

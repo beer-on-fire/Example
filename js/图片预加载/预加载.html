@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta charset="utf-8">
+    <title>图片预加载</title>
+    <script type="text/javascript">
+        (function() {
+            var html = document.querySelector('html');
+            html.style.fontSize = html.clientWidth / 16 + "px";
+        })()
+    </script>
+    <script type="text/javascript" src="m.touchTap.js"></script>
+    <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #ccc;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        header {
+            height: 2.4rem;
+            font: 1rem/2.4rem "宋体";
+            color: #fff;
+            background: #000;
+            text-align: center;
+        }
+
+        canvas {
+        	vertical-align: top;
+        	opacity: 0;
+        	transition: 1s opacity;
+        }
+
+        #wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 2.4rem;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        #list {
+            overflow: hidden;
+        }
+
+        #list li {
+            float: left;
+            margin: .5rem;
+            width: 7rem;
+            height: 7rem;
+            background: #fff url('pics/loading.gif') no-repeat center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>图片预加载</header>
+    <section id="wrap">
+    	<ul id="list"></ul>
+    </section>
+    <script type="text/javascript">
+        $(function() {
+            var list = $('#list');
+            var data = [];
+            var inner = "";
+            for(var i=0;i<100;i++) {
+                data[i] = `pics/${(i%16 + 1)}.jpg`
+            }
+            for(var i = 0; i < data.length; i++){
+                inner += `<li data-src = ${data[i]}></li>`
+            }
+            list.html(inner)
+        })
+        $(function() {
+            var wrap = document.querySelector('#wrap');
+        	var pics = document.querySelectorAll('#list li');
+        	var wrapRect = wrap.getBoundingClientRect();
+            getLoad();
+            mScroll({
+        		wrap: wrap,
+        		showBar: false,
+        		move: getLoad
+        	});
+
+            function getLoad(){
+        		for(var i = 0; i < pics.length; i++){
+        			var rect = pics[i].getBoundingClientRect();
+        			if(rect.top < wrapRect.bottom&&rect.bottom > wrapRect.top&&!pics[i].isLoad){
+        				imgLoading(pics[i]);
+        				pics[i].isLoad = true;
+        			}
+        		}
+        	}
+            function imgLoading(li){
+                var img = new Image();
+                var c = document.createElement("canvas");
+                var cxt = c.getContext("2d");
+                c.width = li.clientWidth;
+        		c.height = li.clientHeight;
+        		li.appendChild(c);
+        		img.src = li.dataset.src;
+                img.onload = function(){
+        			cxt.drawImage(img,0,0,c.width,c.height);
+        			c.style.opacity = 1;
+        		};
+            }
+        })
+    </script>
+</body>
+
+</html>

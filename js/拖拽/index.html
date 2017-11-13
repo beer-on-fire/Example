@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+    body,
+    p {
+    	margin: 0;
+    }
+    .list {
+    	position: relative;
+    	margin: 50px auto;
+    	width: 300px;
+    	padding: 0;
+    	list-style: none;
+    }
+    .list li {
+    	box-sizing: border-box;
+    	width: 100%;
+    	position: relative;
+    	margin: 10px 0 0;
+    	font: 14px/40px "宋体";
+    	background: #ccc;
+    }
+    .list a {
+    	position: absolute;
+    	top: 0;
+    }
+    .list p {
+    	padding: 0 100px 0 10px;
+    }
+    .up {
+    	right: 60px;
+    }
+    .down {
+    	right: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+    	<li>
+    		<p>这是第1项</p>
+    		<a href="javascript:;" class="up">上移</a>
+    		<a href="javascript:;" class="down">下移</a>
+    	</li>
+    	<li>
+    		<p>这是第2项</p>
+    		<a href="javascript:;" class="up">上移</a>
+    		<a href="javascript:;" class="down">下移</a>
+    	</li>
+    	<li>
+    		<p>这是第3项</p>
+    		<a href="javascript:;" class="up">上移</a>
+    		<a href="javascript:;" class="down">下移</a>
+    	</li>
+    	<li>
+    		<p>这是第4项</p>
+    		<a href="javascript:;" class="up">上移</a>
+    		<a href="javascript:;" class="down">下移</a>
+    	</li>
+    	<li>
+    		<p>这是第5项</p>
+    		<a href="javascript:;" class="up">上移</a>
+    		<a href="javascript:;" class="down">下移</a>
+    	</li>
+    </ul>
+    <script src="./m.touchTap.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function() {
+            var list = document.querySelector('.list');
+        	var lis = list.getElementsByTagName("li");
+        	var tops = [];
+            // 转成定位布局
+            for(var i=lis.length - 1;i>=0;i--){
+                lis[i].style.top = lis[i].offsetTop + "px";
+        		lis[i].style.left = "0";
+                lis[i].style.margin = "0";
+        		lis[i].style.position = "absolute";
+        		tops[i] = lis[i].offsetTop;
+                drog(lis[i]);
+            }
+            list.addEventListener('mousedown',function(e) {
+                if(e.target.className == "up") {
+                    var li = e.target.parentNode;
+        			var prev =  li.previousElementSibling;
+        			if(!prev){
+        				list.appendChild(li);
+        			} else {
+        				list.insertBefore(li,prev);
+        			}
+        			tab();
+                } else if(e.target.className == "down") {
+                    var li = e.target.parentNode;
+        			var next = li.nextElementSibling;
+        			if(next){
+        				list.insertBefore(next,li);
+        			} else {
+        				list.insertBefore(li,lis[0]);
+        			}
+        			tab();
+                }
+            });
+            function tab(){
+        		for(var i = 0; i < lis.length; i++){
+        			startMove({
+        				el: lis[i],
+        				target: {
+        					top:tops[i]
+        				},
+        				type: "easeOut",
+        				time: 500
+        			});
+        		}
+        	};
+            function drog(el) {
+                el.addEventListener('mousedown',function(e) {
+                    if(e.target.className == "up" ||e.target.className == "down") {
+                        return;
+                    }
+                    var start = e.clientY;
+                    var elY = css(el,"top");
+                    var newNode = el.cloneNode(true);
+                    newNode.style.opacity = .5;
+        			el.parentNode.appendChild(newNode);
+        			e.preventDefault();
+        			document.addEventListener('mousemove', move);
+        			document.addEventListener('mouseup', end);
+                    function move(e) {
+        				var now = e.clientY;
+        				var y = now - start + elY;
+        				css(newNode,"top",y);
+        			}
+                    function end(e) {
+                        document.removeEventListener('mousemove', move);
+        				document.removeEventListener('mouseup', end);
+                        for(var i = 0; i < lis.length-1; i++){
+        					if(lis[i] != el){
+        						if(getCollide(newNode,lis[i])){
+        							tab2(el,lis[i]);
+        							el.parentNode.removeChild(newNode);
+        							return;
+        						}
+        					}
+        				}
+        				el.parentNode.removeChild(newNode);
+                    }
+                })
+            }
+            function tab2(el,el2){
+                console.log(el,el2);
+        		var next = el.nextElementSibling;
+        		var next2 = el2.nextElementSibling;
+        		list.insertBefore(el,next2);
+        		list.insertBefore(el2,next);
+        		tab();
+        	}
+            function getCollide(el,el2){
+        		var rect = el.getBoundingClientRect();
+        		var rect2 = el2.getBoundingClientRect();
+        		if(rect.right < rect2.left
+        		||rect.left > rect2.right
+        		||rect.bottom<rect2.top
+        		||rect.top>rect2.bottom){
+        			return false;
+        		}
+        		return true;
+        	}
+        })()
+    </script>
+</body>
+
+</html>
