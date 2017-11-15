@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- ->表示一秒的间隔，逗号表示没有间隔 -->
+    <script type="text/javascript">
+        for (var i = 0; i < 5; i++) {
+            setTimeout(function() {
+                console.log(i);
+            }, 1000);
+        }
+        console.log(i);
+        //  5->5,5,5,5,5
+    </script>
+    <script type="text/javascript">
+        /**
+         * 改造，输出结果 5 -> 0,1,2,3,4
+         */
+        for (var i = 0; i < 5; i++) {
+            (function(j) {
+                setTimeout(function() {
+                    console.log(j);
+                }, 1000);
+            })(i)
+        }
+        console.log(i);
+    </script>
+    <script type="text/javascript">
+        var output = function(i) {
+            setTimeout(function() {
+                console.log(i);
+            }, 1000);
+        }
+        for(var i=0;i<5;i++) {
+            output(i)
+        }
+        console.log(i);
+    </script>
+    <script type="text/javascript">
+        /**
+         * 改造，输出 0 -> 1 -> 2 -> 3 -> 4 -> 5
+         * 可使用ES6 Promise
+         */
+        const tasks = [];
+        const output2 = (i) => new Promise((resolve) => {
+            setTimeout(() => {
+                console.log(i);
+                resolve();// 这里一定要 resolve，否则代码不会按预期 work
+            }, 1000 * i); // 定时器的超时时间逐步增加
+        })
+        // 生成全部的异步操作
+        for (var i = 0; i < 5; i++) {
+            tasks.push(output2(i));
+        }
+        // Promise.all 可以接收一个元素为 Promise 对象的数组作为参数，当这个数组里面所有的 Promise 对象都变为 resolve 时，该方法才会返回。
+        Promise.all(tasks).then(()=> {
+            setTimeout(() => {
+                console.log(i);
+            }, 1000);   // 注意这里只需要把超时设置为 1 秒
+        })
+    </script>
+</body>
+
+</html>
