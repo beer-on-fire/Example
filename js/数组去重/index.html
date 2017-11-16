@@ -68,7 +68,20 @@ Array.prototype.unique3 = function(){
 	}
 	return res;
 }
-
 alert(arr.unique3());
+// 方法四：
+/**
+ * 利用下标来判断
+ */
+Array.prototype.unique4 = function() {
+    var res = [this[0]]
+    for(var i=0;i<this.length;i++) {
+        if(res.indexOf(this[i]) == -1){
+            res.push(this[i])
+        }
+    }
+    return res
+}
+alert(arr.unique4())
 </script>
 </html>

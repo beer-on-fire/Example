@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        .wrap div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            display: none;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="wrap">
+        <button class="active">选项一</button>
+        <button>选项二</button>
+        <button>选项三</button>
+        <div style="display:block;">第一块</div>
+        <div>第二块</div>
+        <div>第三块</div>
+    </section>
+    <!-- <script type="text/javascript">
+        var wrap = document.querySelector('.wrap');
+        var btn = document.querySelectorAll('button');
+        var div = document.querySelectorAll('div');
+
+        for(let i=0;i<btn.length;i++) {
+            btn[i].onclick = function() {
+                console.log(btn[i]);
+                for(let i=0;i<btn.length;i++) {
+                    btn[i].className = ''
+                    div[i].style.display = 'none'
+                }
+                btn[i].className = 'active'
+                div[i].style.display = 'block'
+            }
+        }
+    </script> -->
+    <script type="text/javascript">
+        /**
+         * 变形
+         * 尽量不要出现函数套函数
+         * 可以有全局变量
+         */
+        var wrap = document.querySelector('.wrap');
+        var btn = document.querySelectorAll('button');
+        var div = document.querySelectorAll('div');
+        init();
+        function init() {
+            for (var i = 0; i < btn.length; i++) {
+                btn[i].index = i
+                btn[i].onclick = change;
+            }
+        }
+        function change() {
+            for (var i = 0; i < btn.length; i++) {
+                btn[i].className = ''
+                div[i].style.display = 'none'
+            }
+            this.className = 'active'
+            div[this.index].style.display = 'block'
+        }
+    </script>
+</body>
+
+</html>

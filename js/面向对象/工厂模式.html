@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 工厂模式： 封装函数 -->
+    <script type="text/javascript">
+        function pet(name) {
+            // console.log(this);
+            var obj = new Object();
+            obj.name = name
+            obj.bark = function() {
+                console.log(this.name);
+            };
+            return obj;
+        }
+        var dog = pet('小明')
+        dog.bark()
+        var cat = pet('小冏')
+        cat.bark()
+    </script>
+    <!-- 构造函数 -->
+
+    <script type="text/javascript">
+    // 当 New 去调用一个函数： 这个时候函数的this就是创建出来的对象，并且直接 隐式返回 this
+        function pet(name) {
+            // console.log(this);
+            this.name = name
+            this.bark = function() {
+                console.log(this.name);
+            };
+        }
+        var dog = new pet('小话')
+        dog.bark()
+        var cat = new pet('小红')
+        cat.bark()
+    </script>
+</body>
+
+</html>

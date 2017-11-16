@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        .wrap div,
+        .wrap2 div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            display: none;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="wrap">
+        <button class="active">选项一</button>
+        <button>选项二</button>
+        <button>选项三</button>
+        <div style="display:block;">第一块</div>
+        <div>第二块</div>
+        <div>第三块</div>
+    </section>
+    <section class="wrap2">
+        <button class="active">选项一</button>
+        <button>选项二</button>
+        <button>选项三</button>
+        <div style="display:block;">第一块</div>
+        <div>第二块</div>
+        <div>第三块</div>
+    </section>
+
+    <script type="text/javascript">
+        /**
+         * 改成面向对象
+         * 全局变量就是属性
+         * 函数就是方法
+         */
+        var wrap = null;
+        var btn = null;
+        var div = null;
+
+        window.onload = function() {
+            var t1 = new Tab('.wrap');
+            t1.init();
+
+            var t2 = new Tab('.wrap2');
+            t2.init();
+            t2.autoPlay();
+        }
+
+        function Tab(id) {
+            this.wrap = document.querySelector(id);
+            this.btn = this.wrap.querySelectorAll('button');
+            this.div = this.wrap.querySelectorAll('div');
+            this.iNow = 0;
+        }
+        Tab.prototype.init = function () {
+            let _this = this
+            for (var i = 0; i < this.btn.length; i++) {
+                this.btn[i].index = i
+                this.btn[i].onclick = function() {
+                    //注意this指向  ->
+                    _this.change(this);
+                }
+            }
+        };
+        Tab.prototype.change = function (obj) {
+            for (var i = 0; i < this.btn.length; i++) {
+                this.btn[i].className = ''
+                this.div[i].style.display = 'none'
+            }
+            obj.className = 'active'
+            this.div[obj.index].style.display = 'block'
+        }
+        Tab.prototype.autoPlay = function (obj) {
+            var _this = this;
+            setInterval(function() {
+                _this.iNow == _this.btn.length?0:_this.iNow++;
+                for(var i=0;i<_this.btn.length;i++) {
+                    _this.btn[i].className = ''
+                    _this.div[i].style.display = 'none'
+                }
+                _this.btn[_this.iNow].className = 'active'
+                _this.div[_this.iNow].style.display = 'block'
+            },1000)
+        }
+    </script>
+</body>
+
+</html>

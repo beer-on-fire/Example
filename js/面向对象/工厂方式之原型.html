@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function pet(name) {
+            this.name = name
+        }
+        pet.prototype.bark = function () {
+            console.log(this.name);
+        };
+        var dog = new pet('小话')
+        dog.bark()
+        var cat = new pet('小红')
+        cat.bark()
+        alert( dog.bark == cat.bark)
+    </script>
+</body>
+
+</html>

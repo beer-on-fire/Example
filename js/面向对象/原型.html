@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    // 原型： 改写对象下面的公用的方法或者属性，让公用的方法在内存中存在一份（提高性能）
+    /**
+     * 原型： css中的class
+     * 普通方法： css 中的style
+     */
+    var arr = [1,2,3,4,5]
+    var arr2 = [2,2,2,2,2]
+    Array.prototype.sum = function () {
+        let result = 0;
+        for(var i=0;i<this.length;i++) {
+            result += this[i]
+        }
+        return result
+    };
+    console.log(arr.sum());
+    console.log(arr2.sum());
+</script>
+</body>
+
+</html>
