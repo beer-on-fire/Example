@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    // var a = {name: '小名'}
+    function Aaa() {
+        this.name = '雄安命'
+    }
+    Aaa.prototype.showName = function() {
+        alert(this.name)
+    }
+    var a = new Aaa();
+    a.showName();
+
+    var b = cloneObj(a);
+    function cloneObj(obj) {
+        var F = function(){};
+        F.prototype = obj;
+        return new F();
+    }
+    b.name = 'haha';
+    b.showName();
+</script>
+</body>
+
+</html>

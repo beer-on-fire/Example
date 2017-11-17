@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    /**
+     * 概念：
+     *     - 在原有对象的基础上，略作修改，得到一个新对象
+     *     - 不影响原对象的功能
+     *     - 子类影响父类，子类可以继承父类的一些功能（代码复用）
+     */
+
+    function createPerson(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    };
+    createPerson.prototype.showName = function () {
+        console.log(this.name);
+    };
+    var p1 = new createPerson('雄安命','男');
+    p1.showName();
+
+    function createStar(name,sex,job) {
+        // 属性的继承： 调用父类的构造函数， call改this指向
+        createPerson.call(this,name,sex)
+        this.job = job;
+    };
+    createStar.prototype = createPerson.prototype;
+
+    // 方法的继承: 子类的原型 = 父类的原型(会影响到父类的功能)
+    createStar.prototype.showSex = function(){console.log(this.sex);}
+    p1.showSex();
+
+    var p2 = new createStar('雄安命啊','男','演员')
+    p2.showName();
+</script>
+</body>
+
+</html>

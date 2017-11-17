@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+            left:100px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<script type="text/javascript">
+    window.onload = function() {
+        var d1 = new Drag('div1');
+        d1.init();
+
+        var d2 = new Drag('div2');
+        d2.init();
+        d2.d();
+    }
+
+    function Drag(id){  // 父类
+        this.div = document.getElementById(id);
+        this.disX = 0;
+        this.disY = 0;
+    }
+    Drag.prototype.init = function () {
+        var _this = this;
+        this.div.onmousedown = function(e) {
+            _this.fnDown(e);
+        };
+    };
+    Drag.prototype.fnDown = function (e) {
+        var _this = this;
+        this.disX = e.clientX - this.div.offsetLeft;
+        this.disY = e.clientY - this.div.offsetTop;
+        document.onmousemove = function(e) {
+            _this.fnMove(e);
+        };
+        document.onmouseup = function(e) {
+            _this.fnUp(e);
+        };
+        return false;
+    };
+    Drag.prototype.fnMove = function (e) {
+        this.div.style.left = e.clientX - this.disX + 'px';
+        this.div.style.top = e.clientY - this.disY + 'px';
+    };
+    Drag.prototype.fnUp = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+    };
+
+
+    function childDrag(id) {
+        Drag.call(this,id)
+    };
+
+    var F = function(){};
+    F.prototype = Drag.prototype;
+    childDrag.prototype = new F();
+    childDrag.prototype.constructor = childDrag;
+
+    //    类式继承修改或添加方法要改 F 的
+    F.prototype.d = function() {console.log(2);}
+    F.prototype.fnMove = function(e) {
+        console.log(1);
+        var L = e.clientX - this.disX;
+        var T = e.clientY - this.disY;
+
+        if(L<0) {
+            L = 0
+        } else if(L>(document.documentElement.clientWidth - this.div.offsetWidth)) {
+            L = document.documentElement.clientWidth - this.div.offsetWidth
+        }
+
+        this.div.style.left = L + 'px';
+        this.div.style.top = T + 'px';
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="text/javascript">
+/**
+ * 类： JS中是没有类的概念的，把js中的构造函数看作的类
+ * 属性和方法分开继承
+ */
+    function Aaa() { // 父类
+        this.name = '小明'
+        this.test = [1,2,3]
+    }
+    Aaa.prototype.showName = function() {
+        alert(this.name);
+    }
+    function Bbb() { // 子类
+        Aaa.call(this)
+    }
+
+    var F = function(){}
+    F.prototype = Aaa.prototype;
+    Bbb.prototype = new F();
+    Bbb.prototype.constructor = Bbb; // 修正指向
+
+    var b1 = new Bbb();
+    b1.showName();
+    b1.test.push(4);
+
+    var b2 = new Bbb();
+    alert(b2.test);
+</script>
+</body>
+
+</html>

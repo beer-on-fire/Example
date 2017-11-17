@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    /**
+     *    拷贝继承： 通用型，有无new都可以
+     *    类式继承： 适合通过new构造函数的
+     *    原型继承： 无new的对象
+     */
+</script>
+
+<!-- 拷贝继承 -->
+<script type="text/javascript">
+    function Aaa() { // 父类
+        this.name = "小明";
+    }
+    Aaa.prototype.showName = function() {console.log(this.name);}
+
+    function Bbb() {Aaa.call(this);}
+    extend(Bbb.prototype , Aaa.prototype)
+    function extend(child,parent) {
+        for(var attr in parent) {
+            child[attr] = parent[attr];
+        };
+    }
+
+    // Bbb.prototype.change = function() {console.log('test1');}
+    // var b1 = new Bbb();
+    // b1.showName();
+    // b1.change();
+
+</script>
+<!-- 类式继承 -->
+<script type="text/javascript">
+    function Ccc() {this.name = "小话";    }
+    Ccc.prototype.showName = function() {console.log(this.name);}
+
+    function Ddd() {Ccc.call(this);}
+
+    var F = function(){};
+    F.prototype = Ccc.prototype;
+    Ddd.prototype = new F();
+    Ddd.prototype.constructor = Ddd;
+
+    // Ddd.prototype.change = function() {console.log('test');}
+    // var d1 = new Ddd();
+    // var c1 = new Ccc();
+    // d1.showName();
+    // d1.change();
+</script>
+<!-- 原型继承 -->
+<script type="text/javascript">
+    var e = {job: "前端"}
+    // function Eee() {this.name = "小话";}
+    // Eee.prototype.showName = function() {console.log(this.name);}
+    // var e = new Eee();
+
+    var b = cloneObj(e);
+
+    function cloneObj(obj) {
+        var F = function(){};
+        F.prototype = obj;
+        return new F();
+    }
+
+
+    console.log(b.job);
+    // b.showName();
+</script>
+</body>
+
+</html>

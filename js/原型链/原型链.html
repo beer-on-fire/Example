@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="text/javascript">
+    /**
+     * 原型链： 实例对象和原型之间的连接，叫做原型链
+     * 原型链最外层： Object.prototype
+     */
+    function Aaa() {
+        // this.num = 20;
+    }
+    // Aaa.prototype.num = 10;
+    Object.prototype.num = 30;
+    var a = new Aaa();
+    console.log(a.num);
+</script>
+<script type="text/javascript">
+    /**
+     * 面向对象的属性和方法：
+     * hasOwnProperty() 看是不是对象  自身  下面的属性,(在Object.prototype下)
+     * constructor: 查看对象的构造函数
+     *    - 每个原型都会自动添加
+     *    - For in 的时候有些属性是找不到的
+     *    - 避免修改Constructor属性
+     * instanceof: 运算符 ： 对象与构造函数在原型链上是否有关系,也可以用作类型判断
+     * toString: 把对象转成字符串
+     *     -系统对象下面都是自带的，自己写的对象都是通过原型链找Object下的
+     */
+    var arr = []; // -> var arr = new Array()
+    arr.num = 10;
+    Array.prototype.num2 = 20
+    console.log(arr.hasOwnProperty('num')); // true
+    console.log(arr.hasOwnProperty('num2')); // false
+
+    function Bbb(){};
+    var b = new Bbb();
+    console.log(arr.constructor); // function Array(){}
+    console.log(b.constructor); // function Bbb(){}
+
+    console.log(arr instanceof Array);// true
+    console.log(b instanceof Bbb);// true
+    console.log(b instanceof Array);// false
+    console.log(arr instanceof Object);// true
+    console.log(b instanceof Object);// true
+
+    var Crr = [1,2,3]
+    console.log(Crr.toString());
+
+    // 利用toString()做类型判断
+    var Drr = new RegExp
+    console.log(Object.prototype.toString.call(Drr));
+</script>
+</body>
+</html>
