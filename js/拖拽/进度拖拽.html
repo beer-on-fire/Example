@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        * {
+            margin:0;
+            padding:0;
+        }
+        section {
+            width: 500px;
+            height:500px;
+            border:1px solid #000;
+            margin: 50px auto;
+            overflow-y: hidden;
+            position:relative;
+        }
+        .content {
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .content p {
+            margin-bottom: 100px;
+        }
+        .lineBar {
+            width:20px;
+            height:100%;
+            background: red;
+            position:absolute;
+            right:0;
+            top:0;
+        }
+        .badge {
+            width:20px;
+            height:20px;
+            background: blue;
+            position:absolute;
+            top:0;
+            right:0;
+            z-index:1;
+            border-radius:6px;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="content">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p><p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p><p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p><p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p><p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>9</p>
+            <p>0</p>
+        </div>
+        <div class="lineBar">
+            <span class="badge"></span>
+        </div>
+    </section>
+    <script type="text/javascript">
+    (function() {
+        var section = document.querySelector('section');
+        var badge = document.querySelector('.badge');
+        var content = document.querySelector('.content');
+
+        var scale = section.clientHeight/content.offsetHeight;
+        badge.style.height = section.clientHeight*scale + 'px';
+
+        var maxY = section.clientHeight - badge.offsetHeight;
+        var disY = 0;
+        badge.onmousedown = function(e) {
+            e.preventDefault();
+            disY = e.clientY - badge.offsetTop;
+            document.onmousemove = function(e) {
+                let tops = e.clientY - disY;
+                if(tops < 0 ){
+    				tops = 0;
+    			} else if(tops > maxY){
+    				tops = maxY;
+    			}
+                badge.style.top = tops + 'px';
+                content.style.top = -(tops/scale) + 'px';
+            }
+            document.onmouseup = function() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+    // 鼠标滚轮事件
+        mMouseWheel(section, function(e){
+                var y = badge.offsetTop;
+    			y -= 10;
+    			if(y < 0 ){
+    				y = 0;
+    			}
+                badge.style.top = y +'px'
+                content.style.top = -y/scale +'px'
+    		},function(e){
+                var y = badge.offsetTop;
+    			y += 10;
+    			if(y > maxY){
+    				y = maxY;
+    			}
+                badge.style.top = y +'px'
+                content.style.top = -y/scale +'px'
+    		});
+    	function mMouseWheel(el, toUp,toDown){
+    		el.addEventListener('DOMMouseScroll', function(e) {
+    			e.preventDefault();
+    			mouseScroll(e.detail,e);
+    		});
+    		el.addEventListener('mousewheel', function(e) {
+    			e.preventDefault();
+    			mouseScroll(-e.wheelDelta,e);
+    		});
+    		function mouseScroll(dir,e){
+    			if(dir > 0){
+    				toDown(e);
+    			} else {
+    				toUp(e);
+    			}
+    		}
+    	}
+    })()
+
+    </script>
+</body>
+
+</html>
