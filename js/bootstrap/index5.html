@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#a"  data-toggle="tab">One</a></li>
+                    <li><a href="#b"  data-toggle="tab">Two</a></li>
+                    <li><a href="#c"  data-toggle="tab">Three</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">dropdown<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#d"  data-toggle="tab">child1</a></li>
+                            <li><a href="#e"  data-toggle="tab">child2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul class="tab-content" style="margin-top:100px;">
+        <li id="a" class="tab-pane active">wwww</li>
+        <li id="b" class="tab-pane">sdasdasd</li>
+        <li id="c" class="tab-pane">zxczxc</li>
+        <li id="d" class="tab-pane">zxcasdasdzxc</li>
+        <li id="e" class="tab-pane">zxcasdasdasdasdasdaszxc</li>
+    </ul>
+</body>
+<script src="./js/jquery-3.2.1.min.js" charset="utf-8"></script>
+<script src="./js/bootstrap.js" charset="utf-8"></script>
+</html>

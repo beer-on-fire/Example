@@ -73,6 +73,7 @@
 
     extend(childDrag.prototype , Drag.prototype)
 
+    // 子类添加范围的拖拽
     childDrag.prototype.fnMove = function (e) {
         var L = e.clientX - this.disX;
         var T = e.clientY - this.disY;
@@ -82,7 +83,7 @@
         } else if(L>(document.documentElement.clientWidth - this.div.offsetWidth)) {
             L = document.documentElement.clientWidth - this.div.offsetWidth
         }
-        
+
         this.div.style.left = L + 'px';
         this.div.style.top = T + 'px';
     };
