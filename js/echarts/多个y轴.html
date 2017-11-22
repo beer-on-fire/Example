@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./echarts.min.js" charset="utf-8"></script>
+    <style media="screen">
+        #main {
+            width:900px;
+            height:600px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="main"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("main"));
+    // 指定图表的配置项和数据
+        var option = {
+            // 标题
+            title: {
+                text: 'ECharts 入门示例',
+                subtext: '我是副标题',
+            },
+            // 工具箱
+            toolbox: {
+                show:true,
+                feature: {
+                    saveAsImage: {
+                        show:true
+                    },
+                    magicType: {
+                        type: ['line','bar']
+                    }
+                }
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            // 图例
+            legend: {
+                data:['蒸发量','降水量','平均温度']
+            },
+            // x轴
+            xAxis: {
+                data: ["1月","2月","3月","4月","5月","6月"]
+            },
+            yAxis: [
+                    {
+                        type:'value',
+                        name: '水量',
+                        min: 0,
+                        max: 250,
+                        interval: 50,
+                        axisLabel: {
+                            formatter:'{value} ml'
+                        }
+                    },
+                    {
+                        type:'value',
+                        name: '温度',
+                        min: 0,
+                        max: 25,
+                        interval: 5,
+                        axisLabel: {
+                            formatter:"{value} ℃"
+                        }
+                    }
+            ],
+            // 数据
+            series: [
+                {
+                    name: '蒸发量',
+                    type: 'bar',
+                    data: [2.0,3.0,4.0,5.0,5.1,4.5,6.1]
+                },
+                {
+                    name: '降水量',
+                    type: 'bar',
+                    data: [2.0,3.0,4.0,5.0,5.1,4.5,6.1]
+                },
+                {
+                    name: '平均温度',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: [2.0,3.0,4.0,5.0,5.1,4.5,6.1]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+</body>
+
+</html>
