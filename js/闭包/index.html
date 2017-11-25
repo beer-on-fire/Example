@@ -18,7 +18,7 @@
 </body>
 <script type="text/javascript">
     var nodes = document.getElementsByTagName("li");
-    for (i = 0; i < nodes.length; i += 1) {
+    for (var i = 0; i < nodes.length; i += 1) {
         nodes[i].onclick = (function(i) {
             return function() {
                 console.log(i);

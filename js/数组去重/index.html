@@ -83,5 +83,13 @@ Array.prototype.unique4 = function() {
     return res
 }
 alert(arr.unique4())
+// 方法五：
+/**
+ * ES6 Set
+ */
+Array.prototype.unique5 = function() {
+    return Array.from(new Set(this));
+}
+alert([1,2,3,3].unique5());
 </script>
 </html>
