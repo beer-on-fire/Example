@@ -1,0 +1,55 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        title genius pug study
+    body
+        style.
+            a{
+                width:10px;
+                height:10px;
+                background:red;
+                display:block;
+            }
+        script.
+            console.log(1)
+        h1.title1.title2#titles(class='title3')  study titlesss
+        h2.haha.hehe(id="xixi",class="lala") lululu
+        section
+        #test.classname
+        div
+        ul
+            p
+        a(href='www.baidu.com',title="jump",data-uid="123")
+        input(value="站站",name="Coutre",type='text')
+        input(value="站站",name="type",type='checkbox' checked)
+        p 
+            | 1.aa 
+            | 2.bb 
+            | 3.cc 
+            | 4.dd
+        p. 
+            1.aa<strong>gg</strong> 
+            2.bb<span>gg</span> 
+            3.cc 
+            4.dd
+        p 
+            | 1.aa
+            strong gg
+            | 2.bb
+            span ggg
+            | 3.cc 
+            | 4.dd
+
+        // h2 这是单行注释
+        //- h3 非缓冲注释（不会出现在html中）
+        
+        //-
+            块注释
+            p 
+                | 1.aa
+                strong gg
+                | 2.bb
+                span ggg
+                | 3.cc 
+                | 4.dd

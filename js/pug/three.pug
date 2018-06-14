@@ -1,0 +1,34 @@
+doctype
+html
+    head
+        meta(charset="utf-8")
+        title haha
+    body
+        h2 流程
+        h3 if else 
+        - var is = true
+        - var lessons = ['node','koa','x']
+        if lessons
+            if lessons.length>2
+                p #{lessons.join(' | ')}
+            else if lessons.length>1
+                p= lessons.join(', ')
+            else 
+                p no lesson
+        else 
+            p no lesson
+
+        h3 unless
+        unless !is 
+            p= lessons.length
+        h3 case
+        - var name = 'js'
+        case name
+            when 'java'
+            when 'node'
+                p hi,node
+            when 'pug'
+                p hi,pug 
+            when 'js': p hi js
+            default
+                p Hi #{name}

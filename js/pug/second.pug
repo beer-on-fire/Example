@@ -1,0 +1,38 @@
+doctype html
+html 
+    head
+        meta(charset="utf-8")
+        //- - var course = 'pug'
+        title #{course.toUpperCase()}
+    body
+        h2 申明变量和替换
+        script.
+        
+        h2 转义
+        - var data = 'text'
+        - var htmlData = '<script>alert(1)</script><span></span>'
+        p #{data}
+        p #{htmlData}  转义
+        p !{htmlData}  非转义
+        p= data
+        p= htmlData
+        p!= htmlData
+        p \#{htmldata} 
+        input(value=htmlData)
+
+        h2 流程
+        h3 for each
+        - var dats = {course: 'jade',level: 'high'}
+        - for (var k in dats)
+            p= dats[k]
+        each value,key in dats
+            p #{key} : #{value}
+        - var courses = ['node','pug','jade']
+        each item in courses
+            p #{item}
+        - var sections = [{id:1,items:['a','b']},{id:2,items:['c','d']}]
+        dl  
+            each section in sections
+                dt= section.id
+                each item in section.items
+                    dd= item
