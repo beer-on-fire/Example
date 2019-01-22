@@ -1,0 +1,195 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title imooc jade study
+    //- 大段代码
+    style.
+      body{color:#ccc;}
+  body
+    h1 id和class声明
+    //- 标签内文本
+    h2.title imooc jade study
+    h2#title imooc jade study
+    h2(id='title',class='title') imooc jade study
+    |
+    |
+    h1 管道文本
+    p
+     |大段文本2
+     |大段文本3
+     strong 大段文本4水水水水水水水水水水水
+     |大段文本5
+    |
+    |
+    h1 自闭合
+    img/
+    |
+    |
+    h1 内联样式
+    div: span 
+    |
+    |
+    h1 标签属性（支持模板字符串）
+    a(href='https://imooc.com') link
+    input(
+      name='coure'
+      type='text'
+      value=''
+    )
+    |
+    |
+    h1 转义属性（使用!=）
+    div(escaped="<code>")
+    div(unescaped!="<code>")
+    |
+    |
+    h1 布尔值
+    input(type='checkbox' checked)
+    input(type='checkbox' checked=true)
+    |
+    |
+    h1 标签嵌入
+    p.
+      这是一个很长很长而且还很无聊的段落，还没有结束，是的，非常非常地长。
+      突然出现了一个 #[strong 充满力量感的单词]，这确实让人难以 #[em 忽视]。
+    |
+    |
+    h1 注释
+    // h2 我被注释啦
+    //- h2 注释不会在html中显示
+    // 
+      随便写多少
+      没关系
+    |
+    |
+    h1 条件注释
+    <!--[if IE8]>
+    p 我是ie8才能看到
+    <![endif]-->
+    |
+    |
+    |
+    |
+    h1 逻辑语法
+    ul
+      // 用 - 开始一段不直接进行输出的代码
+      - for(var x=0;x<3;x++) 
+        li item
+    // 用=开始一段带有输出的代码，它应该是可以被求值的一个JavaScript表达式。为安全起见，它将被HTML转义
+    p
+      != '这个代码没被 <转义> 了！'
+    p= '这个代码被 <转义> 了！'
+    |
+    |
+    h1 变量
+    - var name = 'genius'
+    h2 李锦 - #{name}  
+    p= name
+    - var msg = "not my inside voice";
+    p This is #{msg.toUpperCase()}
+    p 不要转义 #{'}'}！
+    // 需要表示一个 #{ 文本
+    p Escaping works with \#{interpolation}
+    p Interpolation works with #{'#{interpolation}'} too!
+    // 使用!{}嵌入没有转义的文本
+    - var riskyBusiness = "<em>我希望通过外籍教师 Peter 找一位英语笔友。</em>";
+    p 李华：!{riskyBusiness}
+    |
+    |
+    h1 &attributes 语法可以将一个对象转化为一个元素的属性列表
+    div#foo(data-bar="foo")&attributes({'data-foo': 'bar'})
+    |
+    |
+    h1 条件 if-else
+    - var user = { description: 'foo bar baz',isAnonymous: false }
+    - var authorised = false
+    #user
+      if user.description
+        h2.green 描述
+        p.description= user.description
+      else if authorised
+        h2.blue 描述
+        p.description.
+          用户没有添加描述。
+          不写点什么吗……
+      else
+        h2.red 描述
+        p.description 用户没有描述
+    unless user.isAnonymous
+      p 您将以 游客 的身份登录。
+    if user.isAnonymous
+      p 您将以 开发者 的身份登录。
+    |
+    |
+    h1 switch
+    - var friends = 10
+    case friends
+      when 0
+        p 您没有朋友
+      when 1
+        - break
+      when 2
+        p 您有一个朋友
+      default
+        p 您有 #{friends} 个朋友
+    |
+    |    
+    h1 循环
+    ul  
+      each val,index in ['〇', '一', '二']
+        li=  index + ': ' + val
+    - arrs = []    
+    ul
+      each val in arrs.length?arrs:['没有内容'] 
+        li= val
+    ul
+      each val in arrs 
+        li= val
+      else 
+        li 没有内容
+    // while
+    - var n = 0;
+    ul  
+      while n<4
+        li= n++
+    |
+    |    
+    h1 混入 
+    //- 混入是一种允许在 Pug 中重复使用一整个代码块的方法
+    mixin list
+      ul
+        li 我是代码块，我被重复了
+        li 我是代码块，我也被重复了
+    +list
+    +list
+    //- 混入可以被编译成函数形式，并传递一些参数
+    mixin pet(name)
+      li.pet= name
+    ul
+      +pet('🐕')
+      +pet('🐱')
+      +pet('🐖')
+    //- 混入也可以把一整个代码块像内容一样传递进来
+    mixin article(title)
+      .article
+        .article-wrapper
+          h1= title
+          if block
+            block
+          else
+            p 没有提供任何内容。
+    +article('Hello World')
+    +article('Hello world')
+      p 这是我
+      p 被传进去的代码块
+    mixin link(href,name)
+      a(class!=attributes.class href=href)= name
+    +link('/foo','foo')(class="btn")  
+    |
+    |
+    h1 包含- include
+    include 2.pug
+    |
+    |
+    h1 继承 block 和 extends 见extends文件夹

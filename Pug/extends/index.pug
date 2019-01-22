@@ -1,0 +1,13 @@
+extends layout.pug
+
+block scripts
+  script(src="./1.js")
+
+block content
+  - var pets = ['猫', '狗']
+    each petName in pets
+      include pet.pug
+
+block prepend head
+  script(src="file.js")
+  

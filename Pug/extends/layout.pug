@@ -1,0 +1,16 @@
+doctype html
+html  
+  head
+    meta(charset='utf-8')
+    title layout
+    block scripts
+      // 会被覆盖
+      script(src="./2") 
+    block head
+      script(src="./3") 
+  body
+    block content
+    block foot
+      // 因为foot没定义，所以不会覆盖
+      #footer
+        p 一些页脚的内容    

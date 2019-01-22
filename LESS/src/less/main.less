@@ -1,0 +1,153 @@
+@charset "utf-8";
+@import './test';
+body {
+  background: #00ffff;
+}
+
+#layer {
+  // 变量
+  @test_width: 100px;
+  .title {
+    width: @test_width;
+    height: @test_width;
+    background: green;
+  } // 混合
+  .border {
+    border: 5px solid white;
+  }
+  .title2 {
+    font-size: 16px;
+    .title;
+    background: #c0c0c0;
+  } // 混合-带参数
+  .border_02(@border_width, @border_color) {
+    border: @border_width solid @border_color;
+  }
+  .title3 {
+    font-size: 16px;
+    .title;
+    .border_02(10px, red);
+  } // 混合-默认带值
+  .border_03(@border_width: 3px) {
+    border: @border_width solid red;
+  }
+  .title4 {
+    font-size: 16px;
+    .title;
+    .border_03();
+  } // 匹配模式
+  /*.triangle {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-width: 10px;
+  border-color: red transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+}
+*/
+  .sanjiao(top, @w: 5px, @c: #ccc) {
+    border-width: @w;
+    border-color: transparent transparent @c transparent;
+    border-style: dashed dashed solid dashed;
+  }
+  .sanjiao(bottom, @w: 5px, @c: #ccc) {
+    border-width: @w;
+    border-color: @c transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+  }
+  .sanjiao(left, @w: 5px, @c: #ccc) {
+    border-width: @w;
+    border-color: transparent @c transparent transparent;
+    border-style: dashed solid dashed dashed;
+  }
+  .sanjiao(right, @w: 5px, @c: #ccc) {
+    border-width: @w;
+    border-color: transparent transparent transparent @c;
+    border-style: dashed dashed dashed solid;
+  } // @_  : 此处的样式一定会加入
+  .sanjiao(@_, @w: 5px, @c: #ccc) {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .triangle {
+    .sanjiao(top, 20px, black); // .sanjiao(left, 20px, black);
+  } // 运算
+  @cal_width: 20px;
+  .title5 {
+    .title;
+    width: 50 - @cal_width*2;
+    color: #ccc - 10;
+  } //嵌套
+  /*
+  .list {}
+  .list li {}
+  .list a {}
+  .list span {}
+*/
+  .list {
+    width: 300px;
+    margin: 20px auto;
+    padding: 0;
+    list-style: none;
+    li {
+      height: 30px;
+      line-height: 30px;
+      background: pink;
+      margin-bottom: 5px;
+    }
+    a {
+      float: left; // &代表上一层选择器
+      &:hover {
+        color: red;
+      }
+    }
+    span {
+      float: right;
+    }
+  } // @arguments
+  .border_04(@a: 10px, @b: red, @c: solid) {
+    border: @arguments;
+  } // 避免编译
+  .title6 {
+    // .title;
+    width: ~'calc(300px - 30px)';
+  } // !important关键字
+  .title7 {
+    .border_03() !important;
+  } //Color 函数
+  @base_color: #fff;
+  .title8 {
+    .title;
+    background: darken(@base_color, 30%);
+  }
+  .title9 {
+    .title;
+    background: @base_color;
+  } //Math 函数
+  .title10 {
+    .title; // opacity: round(0.8) ;
+    opacity: floor(0.8); // opacity: ceil(0.8);
+  }
+}
+
+// @var: #808000;
+// 命名空间
+#layer2 {
+  // 作用域
+  p {
+    #layer>.title;
+    background: @var;
+  }
+  .img {
+    #layer>.title;
+    background-image: url('@{base_url}/images/bg.png');
+  }
+}
+
+// 字符串插值
+@base_url: 'http://pic24.nipic.com/20121009/7810872_152104333177_2.jpg';
+// JavaScript 表达式
+@str: 'testStr';
+@vars: ~` @{testStr}.toUpperCase()+'!' `;
+@height: `document.body.clientHeight`;

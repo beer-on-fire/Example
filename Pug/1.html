@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>imooc jade study</title>
+    <style>body{color:#ccc;}</style>
+  </head>
+  <body>
+    <h1>id和class声明</h1>
+    <h2 class="title">imooc jade study</h2>
+    <h2 id="title">imooc jade study</h2>
+    <h2 class="title" id="title">imooc jade study</h2>
+    
+    <h1>管道文本</h1>
+    <p>
+      大段文本2
+      大段文本3<strong>大段文本4水水水水水水水水水水水</strong>大段文本5
+    </p>
+    
+    <h1>自闭合</h1><img/>
+    
+    <h1>内联样式</h1>
+    <div><span> </span></div>
+    
+    <h1>标签属性（支持模板字符串）</h1><a href="https://imooc.com">link</a>
+    <input name="coure" type="text" value="">
+    
+    <h1>转义属性（使用!=）</h1>
+    <div escaped="&lt;code&gt;"></div>
+    <div unescaped="<code>"></div>
+    
+    <h1>布尔值</h1>
+    <input type="checkbox" checked>
+    <input type="checkbox" checked>
+    
+    <h1>标签嵌入</h1>
+    <p>
+      这是一个很长很长而且还很无聊的段落，还没有结束，是的，非常非常地长。
+      突然出现了一个 <strong>充满力量感的单词</strong>，这确实让人难以 <em>忽视</em>。
+    </p>
+    
+    <h1>注释</h1>
+    <!-- h2 我被注释啦-->
+    <!-- 
+    随便写多少
+    没关系
+    -->
+    
+    <h1>条件注释</h1><!--[if IE8]>
+    <p>我是ie8才能看到</p><![endif]-->
+    
+    
+    
+    <h1>逻辑语法</h1>
+    <ul>
+      <!-- 用 - 开始一段不直接进行输出的代码-->
+      <li>item</li>
+      <li>item</li>
+      <li>item</li>
+    </ul>
+    <!-- 用=开始一段带有输出的代码，它应该是可以被求值的一个JavaScript表达式。为安全起见，它将被HTML转义-->
+    <p>这个代码没被 <转义> 了！
+    </p>
+    <p>这个代码被 &lt;转义&gt; 了！</p>
+    
+    <h1>变量</h1>
+    <h2>李锦 - genius  </h2>
+    <p>genius</p>
+    <p>This is NOT MY INSIDE VOICE</p>
+    <p>不要转义 }！</p>
+    <!-- 需要表示一个 #{ 文本-->
+    <p>Escaping works with #{interpolation}</p>
+    <p>Interpolation works with #{interpolation} too!</p>
+    <!-- 使用!{}嵌入没有转义的文本-->
+    <p>李华：<em>我希望通过外籍教师 Peter 找一位英语笔友。</em></p>
+    
+    <h1>&attributes 语法可以将一个对象转化为一个元素的属性列表</h1>
+    <div id="foo" data-bar="foo" data-foo="bar"></div>
+    
+    <h1>条件 if-else</h1>
+    <div id="user">
+      <h2 class="green">描述</h2>
+      <p class="description">foo bar baz</p>
+    </div>
+    <p>您将以 游客 的身份登录。</p>
+    
+    <h1>switch</h1>
+    <p>您有 10 个朋友</p>
+       
+    <h1>循环</h1>
+    <ul> 
+      <li>0: 〇</li>
+      <li>1: 一</li>
+      <li>2: 二</li>
+    </ul>
+    <ul>
+      <li>没有内容</li>
+    </ul>
+    <ul>
+      <li>没有内容</li>
+    </ul>
+    <!-- while-->
+    <ul> 
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+       
+    <h1>混入 </h1>
+        <ul>
+          <li>我是代码块，我被重复了</li>
+          <li>我是代码块，我也被重复了</li>
+        </ul>
+        <ul>
+          <li>我是代码块，我被重复了</li>
+          <li>我是代码块，我也被重复了</li>
+        </ul>
+    <ul>
+          <li class="pet">🐕</li>
+          <li class="pet">🐱</li>
+          <li class="pet">🐖</li>
+    </ul>
+        <div class="article">
+          <div class="article-wrapper">
+            <h1>Hello World</h1>
+            <p>没有提供任何内容。</p>
+          </div>
+        </div>
+        <div class="article">
+          <div class="article-wrapper">
+            <h1>Hello world</h1>
+            <p>这是我</p>
+            <p>被传进去的代码块</p>
+          </div>
+        </div><a class="btn" href="/foo">foo</a>
+    
+    <h1>包含- include</h1>
+    <footer id="footer">
+      <p>Copyright (c) foobar</p>
+    </footer>
+    
+    <h1>继承 block 和 extends </h1>
+  </body>
+</html>
