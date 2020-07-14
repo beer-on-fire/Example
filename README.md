@@ -1,4 +1,4 @@
-# 了解前端知识时示例代码
+# 示例代码
 
 1.	Express： [https://github.com/beer-on-ice/notes/blob/master/express.md](https://github.com/beer-on-ice/notes/blob/master/express.md)
 2.	js相等比较： [https://github.com/beer-on-ice/Example/tree/master/js%E7%9B%B8%E7%AD%89%E6%AF%94%E8%BE%83](https://github.com/beer-on-ice/Example/tree/master/js%E7%9B%B8%E7%AD%89%E6%AF%94%E8%BE%83)
